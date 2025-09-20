@@ -1,9 +1,7 @@
 package com.levtttech.quoteapp.presentation.viewmodel
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.levtttech.quoteapp.data.QuoteService
 import com.levtttech.quoteapp.domain.LoadResult
 import com.levtttech.quoteapp.domain.Repository
 import com.levtttech.quoteapp.presentation.ui.UiState
