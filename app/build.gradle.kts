@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp") version "2.0.21-1.0.26"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -36,7 +38,10 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.fragment:fragment-ktx:1.8.4")  // <- Добавьте это! Последняя версия на 2025
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")  // Для ViewModel в целом
+    implementation("com.google.dagger:hilt-android:2.57.1")  // актуальная версия на 2025
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

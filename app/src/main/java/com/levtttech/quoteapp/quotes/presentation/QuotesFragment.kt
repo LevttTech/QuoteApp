@@ -1,18 +1,17 @@
 package com.levtttech.quoteapp.quotes.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.levtttech.quoteapp.R
+import com.levtttech.quoteapp.main.presentation.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class QuotesFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_quotes, container, false)
+@AndroidEntryPoint
+class QuotesFragment : BaseFragment<QuotesViewModel>() {
+    override val viewModel: QuotesViewModel by viewModels<QuotesViewModel>()
+    override val layoutId: Int
+        get() = R.layout.fragment_quotes
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
