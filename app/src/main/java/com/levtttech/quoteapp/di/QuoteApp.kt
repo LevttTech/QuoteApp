@@ -1,7 +1,6 @@
-package com.levtttech.quoteapp.main.presentation
+package com.levtttech.quoteapp.di
 
 import android.app.Application
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
