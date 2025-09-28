@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface QuotesService {
 
-    @GET("https://api.api-ninjas.com/v1/quotes")
-    fun loadQuote(): QuoteData
+    @GET("quotes")
+    suspend fun loadQuote(): List<QuoteData>
 }

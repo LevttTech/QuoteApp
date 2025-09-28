@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        supportFragmentManager.beginTransaction()
-            .add(R.id.container, QuotesFragment())
-            .commit()
+        if(savedInstanceState == null)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.container, QuotesFragment())
+                .commit()
     }
 }
