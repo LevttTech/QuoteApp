@@ -8,8 +8,8 @@ interface QuoteInteractor: QuoteInitialUseCase, QuoteUseCase {
         private val repository: Repository,
         private val handleRequest: HandleRequest
     ) : QuoteInteractor {
-        override suspend fun init(): QuoteResult {
-            TODO("Not yet implemented")
+        override suspend fun init(): QuoteResult = handleRequest.handle{
+            repository.allQuotes()
         }
 
         override suspend fun quote(): QuoteResult = handleRequest.handle {

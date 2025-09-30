@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.quotes.data.cloud
 
+import com.levtttech.quoteapp.quotes.data.HandleDataRequest
 import com.levtttech.quoteapp.quotes.data.QuoteData
 import com.levtttech.quoteapp.quotes.domain.Repository
 import javax.inject.Inject

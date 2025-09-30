@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-ktx:2.8.1")
+    implementation("androidx.room:room-runtime:2.8.1")
+    ksp("androidx.room:room-compiler:2.8.1")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
@@ -46,7 +49,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation("com.google.dagger:hilt-android:2.57.1")
-    implementation(libs.androidx.room.common.jvm)
     ksp("com.google.dagger:hilt-compiler:2.57.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
