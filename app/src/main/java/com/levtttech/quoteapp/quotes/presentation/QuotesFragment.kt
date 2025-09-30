@@ -1,6 +1,7 @@
 package com.levtttech.quoteapp.quotes.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -21,13 +22,18 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         val textView = view.findViewById<TextView>(R.id.textView)
         val button = view.findViewById<Button>(R.id.buttonLoadQuote)
-        viewModel.liveData.observe(
-            viewLifecycleOwner) {
+        val progress = view.findViewById<View>(R.id.progressBar)
+
+        button.setOnClickListener {
+            viewModel.fetchQuote()
+        }
+        viewModel.observeState(viewLifecycleOwner) {
             it.show(textView)
         }
 
-        button.setOnClickListener {
-            viewModel.loadQuote()
+        viewModel.observeProgress(viewLifecycleOwner) {
+            Log.d("FRAGMENT","heloo")
+            progress.visibility = it
         }
 
     }

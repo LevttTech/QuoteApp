@@ -9,9 +9,12 @@ import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import com.levtttech.quoteapp.quotes.domain.Repository
-import com.levtttech.quoteapp.quotes.presentation.QuoteUi
+import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
+import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
+import com.levtttech.quoteapp.quotes.presentation.QuotesCommunication
+import com.levtttech.quoteapp.quotes.presentation.QuotesCommunications
 import com.levtttech.quoteapp.quotes.presentation.QuotesResultMapper
-import com.levtttech.quoteapp.quotes.presentation.UiState
+import com.levtttech.quoteapp.quotes.presentation.StateCommunication
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,29 +24,28 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface MainModule {
     @Binds
-    abstract fun bindQuoteInteractor(
+    fun bindQuoteInteractor(
         base: QuoteInteractor.Base
     ): QuoteInteractor
+
     @Binds
     fun bindRepository(impl: BaseQuoteRepository): Repository
+
     @Binds
-    abstract fun bindHandleRequest(
+    fun bindHandleRequest(
         impl: HandleRequest.Base
     ): HandleRequest
 
     @Binds
-    abstract fun bindQuotesCloudDataSource(
+    fun bindQuotesCloudDataSource(
         impl: QuotesCloudDataSource.Base
     ): QuotesCloudDataSource
 
-    @Binds
-    abstract fun bindQuoteMapper(
-        impl: QuotesResultMapper // Предполагаемая реализация
-    ): QuoteResult.Mapper<UiState>
 
     @Binds
-    abstract fun bindDataToDomainMapper(
-
+    fun bindDataToDomainMapper(
         impl: QuoteDataToDomain
     ): QuoteData.Mapper<QuoteDomain>
+
+
 }

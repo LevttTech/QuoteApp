@@ -13,7 +13,6 @@ interface QuoteResult {
 
     data class Success(private val quoteDomain: QuoteDomain): QuoteResult {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(quoteDomain)
-
     }
 
     data class Failure(private val message: String): QuoteResult {

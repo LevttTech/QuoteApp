@@ -4,15 +4,17 @@ import android.util.Log
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import javax.inject.Inject
+import kotlin.math.log
 
 class QuotesResultMapper @Inject constructor(
-) : QuoteResult.Mapper<UiState> {
-    override fun map(errorMessage: String): UiState {
-        Log.d("RETROFITERROS",errorMessage)
-        return UiState.Error(errorMessage)
+    private val communications: QuotesCommunications
+) : QuoteResult.Mapper<Unit> {
+    override fun map(errorMessage: String) {
+        Log.d("FRAGMENT",errorMessage)
+        communications.showState(UiState.Error(errorMessage))
     }
 
-    override fun map(quoteDomain: QuoteDomain): UiState {
-        return UiState.Success(quoteDomain.quote)
+    override fun map(quoteDomain: QuoteDomain) {
+        communications.showState(UiState.Success(quoteDomain.quote))
     }
 }
