@@ -8,7 +8,7 @@ import javax.inject.Inject
 interface QuotesCommunications : ObserveQuotes {
     fun showProgress(show: Int)
     fun showState(uiState: UiState)
-    fun showQuote(quoteUi: QuoteUi)
+    fun showQuotes(listQuotes: List<QuoteUi>)
 
 
     class Base @Inject constructor(
@@ -24,8 +24,8 @@ interface QuotesCommunications : ObserveQuotes {
             state.map(uiState)
         }
 
-        override fun showQuote(quoteUi: QuoteUi) {
-            quote.map(quoteUi)
+        override fun showQuotes(listQuotes: List<QuoteUi>) {
+            quote.map(listQuotes)
         }
 
         override fun observeProgress(
@@ -42,9 +42,9 @@ interface QuotesCommunications : ObserveQuotes {
             state.observe(owner, observer)
         }
 
-        override fun observeQuote(
+        override fun observeQuotes(
             owner: LifecycleOwner,
-            observer: Observer<QuoteUi>
+            observer: Observer<List<QuoteUi>>
         ) {
             quote.observe(owner,observer)
 
@@ -55,7 +55,7 @@ interface QuotesCommunications : ObserveQuotes {
 interface ObserveQuotes {
     fun observeProgress(owner: LifecycleOwner, observer: Observer<Int>)
     fun observeState(owner: LifecycleOwner, observer: Observer<UiState>)
-    fun observeQuote(owner: LifecycleOwner, observer: Observer<QuoteUi>)
+    fun observeQuotes(owner: LifecycleOwner, observer: Observer<List<QuoteUi>>)
 }
 
 interface ProgressCommunication : Communication.Mutable<Int> {
@@ -74,6 +74,6 @@ interface StateCommunication: Communication.Mutable<UiState> {
     }
 }
 
-interface QuotesCommunication: Communication.Mutable<QuoteUi> {
-    class Base @Inject constructor() : Communication.Ui<QuoteUi>(), QuotesCommunication
+interface QuotesCommunication: Communication.Mutable<List<QuoteUi>> {
+    class Base @Inject constructor() : Communication.Ui<List<QuoteUi>>(), QuotesCommunication
 }

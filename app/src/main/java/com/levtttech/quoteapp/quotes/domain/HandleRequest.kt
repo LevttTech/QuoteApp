@@ -11,7 +11,7 @@ interface HandleRequest {
         override suspend fun handle(block: suspend () -> Unit): QuoteResult {
             return try {
                 block.invoke()
-                QuoteResult.Success(repository.loadQuote())
+                QuoteResult.Success(repository.allQuotes())
             } catch(e: Exception) {
                 QuoteResult.Failure(e.message.toString())
             }

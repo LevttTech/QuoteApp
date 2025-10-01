@@ -1,8 +1,11 @@
 package com.levtttech.quoteapp.di
 
+import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
+import com.levtttech.quoteapp.quotes.presentation.QuoteUi
+import com.levtttech.quoteapp.quotes.presentation.QuoteUiMapper
 import com.levtttech.quoteapp.quotes.presentation.QuotesCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuotesCommunications
 import com.levtttech.quoteapp.quotes.presentation.QuotesResultMapper
@@ -39,4 +42,8 @@ interface QuotesModule {
     @Binds
     @ViewModelScoped
     fun bindHandleRequest(impl: QuoteHandleRequest.Base): QuoteHandleRequest
+
+    @Binds
+    @ViewModelScoped
+    fun bindQuoteMapperToUi(impl: QuoteUiMapper): QuoteDomain.Mapper<QuoteUi>
 }

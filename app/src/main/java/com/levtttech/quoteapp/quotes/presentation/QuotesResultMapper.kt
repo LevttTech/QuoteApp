@@ -7,14 +7,17 @@ import javax.inject.Inject
 import kotlin.math.log
 
 class QuotesResultMapper @Inject constructor(
-    private val communications: QuotesCommunications
+    private val communications: QuotesCommunications,
+    private val mapper: QuoteDomain.Mapper<QuoteUi>
 ) : QuoteResult.Mapper<Unit> {
     override fun map(errorMessage: String) {
         Log.d("FRAGMENT",errorMessage)
         communications.showState(UiState.Error(errorMessage))
     }
 
-    override fun map(quoteDomain: QuoteDomain) {
-        communications.showState(UiState.Success(quoteDomain.quote))
+    override fun map(list: List<QuoteDomain>) {
+        if (list.isNotEmpty())
+            communications.showQuotes(list.map { it.map(mapper) })
+        communications.showState(UiState.Success(list.last().quote))
     }
 }

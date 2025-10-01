@@ -13,7 +13,6 @@ import javax.inject.Inject
 @HiltViewModel
 class QuotesViewModel @Inject constructor(
     private val interactor: QuoteInteractor,
-    private val mapper: QuotesResultMapper,
     private val communications: QuotesCommunications,
     private val handle: QuoteHandleRequest
 ) : BaseViewModel(), ObserveQuotes, FetchQuote {
@@ -29,10 +28,10 @@ class QuotesViewModel @Inject constructor(
         communications.observeState(owner, observer)
     }
 
-    override fun observeQuote(
-        owner: LifecycleOwner, observer: Observer<QuoteUi>
+    override fun observeQuotes(
+        owner: LifecycleOwner, observer: Observer<List<QuoteUi>>
     ) {
-        communications.observeQuote(owner, observer)
+        communications.observeQuotes(owner, observer)
     }
 
     override fun fetchQuote() {

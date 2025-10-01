@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.levtttech.quoteapp.R
 import com.levtttech.quoteapp.main.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,13 +24,22 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         val textView = view.findViewById<TextView>(R.id.textView)
         val button = view.findViewById<Button>(R.id.buttonLoadQuote)
         val progress = view.findViewById<View>(R.id.progressBar)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val adapter = QuotesAdapter()
+        recyclerView.adapter = adapter
 
+
+        viewModel.observeQuotes(
+            this) {
+            adapter.listQuotes = it
+        }
         button.setOnClickListener {
             viewModel.fetchQuote()
         }
         viewModel.observeState(viewLifecycleOwner) {
             it.show(textView)
         }
+
 
         viewModel.observeProgress(viewLifecycleOwner) {
             Log.d("FRAGMENT","heloo")

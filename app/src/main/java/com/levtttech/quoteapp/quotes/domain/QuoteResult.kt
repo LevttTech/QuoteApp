@@ -8,11 +8,11 @@ interface QuoteResult {
 
     interface Mapper<T> {
         fun map(errorMessage: String): T
-        fun map(quoteDomain: QuoteDomain): T
+        fun map(list: List<QuoteDomain>): T
     }
 
-    data class Success(private val quoteDomain: QuoteDomain): QuoteResult {
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(quoteDomain)
+    data class Success(private val list: List<QuoteDomain>): QuoteResult {
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(list)
     }
 
     data class Failure(private val message: String): QuoteResult {
