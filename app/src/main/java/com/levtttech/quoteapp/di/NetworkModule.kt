@@ -23,7 +23,7 @@ class NetworkModule {
             .addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
-                    .header("X-Api-Key", "uzJ+HKZzgJhSePYHAHVYdQ==VNdX7W96FiEDIa1q") // Замените на ваш API-ключ
+                    .header("X-Api-Key", "uzJ+HKZzgJhSePYHAHVYdQ==VNdX7W96FiEDIa1q")
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }

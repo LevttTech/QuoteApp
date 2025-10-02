@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textSize="24sp"
-    tools:text="gfddgdf"
+    tools:text="details of quote"
     android:textAlignment="center">
 
 </TextView>

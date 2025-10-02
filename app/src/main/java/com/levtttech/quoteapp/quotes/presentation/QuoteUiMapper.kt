@@ -4,7 +4,10 @@ import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import javax.inject.Inject
 
 class QuoteUiMapper @Inject constructor() : QuoteDomain.Mapper<QuoteUi> {
-    override fun map(quote: String): QuoteUi {
-        return QuoteUi(quote)
+    override fun map(
+        id: Int,
+        quote: String,
+    ): QuoteUi {
+        return QuoteUi(id, quote)
     }
 }

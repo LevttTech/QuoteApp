@@ -2,10 +2,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/textViewRecycler"
-    android:textSize="24dp"
+    android:textSize="12sp"
+    android:paddingBottom="12dp"
     tools:text="this is my quote"
-    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 </TextView>

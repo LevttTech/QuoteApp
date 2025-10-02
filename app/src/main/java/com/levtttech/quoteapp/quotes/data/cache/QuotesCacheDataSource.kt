@@ -18,7 +18,7 @@ interface QuotesCacheDataSource {
         val mutex = Mutex()
 
         override suspend fun allQuotes(): List<QuoteData> = mutex.withLock{
-            return dao.allQuotes().map { QuoteData(it.quote) }
+            return dao.allQuotes().map { QuoteData(it.id,it.quote) }
         }
 
         override suspend fun insert(quote: QuoteData) = mutex.withLock{
