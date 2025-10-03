@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.levtttech.quoteapp.R
 
-class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>() {
-    var listQuotes: List<QuoteUi> = mutableListOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>(),
+    Mapper.Unit<List<QuoteUi>> {
+    var listQuotes = mutableListOf<QuoteUi>()
 
     override fun onBindViewHolder(
         holder: QuoteViewHolder, position: Int,
@@ -28,6 +26,14 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>() {
                 R.layout.quote_item, parent, false
             )
         )
+    }
+
+    override fun map(source: List<QuoteUi>) {
+        val diff = DiffUtilCallBack(listQuotes, source)
+        val result = DiffUtil.calculateDiff(diff)
+        listQuotes.clear()
+        listQuotes.addAll(source)
+        result.dispatchUpdatesTo(this)
     }
 
 

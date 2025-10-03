@@ -2,12 +2,14 @@ package com.levtttech.quoteapp.quotes.presentation
 
 import android.widget.TextView
 
-data class QuoteUi(private val id: Int, private val quote: String){
+data class QuoteUi(private val id: Int, private val quote: String): Mapper<Boolean, QuoteUi>{
     fun <T> map(mapper: Mapper<T>): T = mapper.map(id, quote)
     interface Mapper<T>{
 
         fun map(id: Int, quote: String): T
     }
+
+    override fun map(source: QuoteUi): Boolean = source.id == id
 }
 
 

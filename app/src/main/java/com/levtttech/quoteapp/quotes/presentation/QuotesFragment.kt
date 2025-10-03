@@ -37,7 +37,7 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
 
 
         viewModel.observeQuotes(this) {
-            adapter.listQuotes = it
+            adapter.map(it)
         }
 
         button.setOnClickListener {
