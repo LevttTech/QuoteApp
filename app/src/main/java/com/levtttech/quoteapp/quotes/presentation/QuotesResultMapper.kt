@@ -11,13 +11,17 @@ class QuotesResultMapper @Inject constructor(
     private val mapper: QuoteDomain.Mapper<QuoteUi>
 ) : QuoteResult.Mapper<Unit> {
     override fun map(errorMessage: String) {
-        Log.d("FRAGMENT",errorMessage)
         communications.showState(UiState.Error(errorMessage))
     }
 
     override fun map(list: List<QuoteDomain>) {
-        if (list.isNotEmpty())
+        if (list.isNotEmpty()) {
+            communications.showState(UiState.Success(list.last().quote))
             communications.showQuotes(list.map { it.map(mapper) })
-        communications.showState(UiState.Success(list.last().quote))
+        } else {
+            map("Quote is empty!")
+        }
     }
 }
+
+

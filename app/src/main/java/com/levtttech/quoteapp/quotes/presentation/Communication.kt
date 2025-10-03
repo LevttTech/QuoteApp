@@ -30,7 +30,6 @@ interface Communication {
          liveData: MutableLiveData<T> = MutableLiveData()
     ): Abstract<T>(liveData) {
         override fun map(source: T) {
-            Log.d("FRAGMENT","UIMAP ${liveData.hashCode()} + ${liveData.value}")
             liveData.value = source
         }
     }

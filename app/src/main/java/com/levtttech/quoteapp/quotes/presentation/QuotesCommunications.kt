@@ -60,17 +60,11 @@ interface ObserveQuotes {
 
 interface ProgressCommunication : Communication.Mutable<Int> {
     class Base @Inject constructor(): Communication.Ui<Int>(), ProgressCommunication {
-        init {
-            Log.d("FRAGMENT", "ProgressCommunication.Base created: ${hashCode()}")
-        }
     }
 }
 
 interface StateCommunication: Communication.Mutable<UiState> {
     class Base @Inject constructor(): Communication.Ui<UiState>(), StateCommunication {
-        init {
-            Log.d("FRAGMENT", "StateCommunication.Base created: ${hashCode()}")
-        }
     }
 }
 

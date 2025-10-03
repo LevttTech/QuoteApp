@@ -15,18 +15,20 @@ class QuotesAdapter : RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>() {
         }
 
     override fun onBindViewHolder(
-        holder: QuoteViewHolder, position: Int
+        holder: QuoteViewHolder, position: Int,
     ) {
         holder.bind(listQuotes[position])
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
-    ): QuoteViewHolder = QuoteViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.quote_item, parent, false
+        parent: ViewGroup, viewType: Int,
+    ): QuoteViewHolder {
+        return QuoteViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.quote_item, parent, false
+            )
         )
-    )
+    }
 
 
     override fun getItemCount(): Int = listQuotes.size

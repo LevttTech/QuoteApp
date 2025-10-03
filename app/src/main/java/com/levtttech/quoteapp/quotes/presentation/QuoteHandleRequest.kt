@@ -12,16 +12,18 @@ interface QuoteHandleRequest {
 
     fun handle(
         coroutineScope: CoroutineScope,
-        block: suspend () -> QuoteResult
+        block: suspend () -> QuoteResult,
+        onComplete: (() -> Unit)? = null
     )
 
     class Base @Inject constructor(
         private val mapper: QuoteResult.Mapper<Unit>,
-        private val communications: QuotesCommunications
-    ): QuoteHandleRequest {
+        private val communications: QuotesCommunications,
+    ) : QuoteHandleRequest {
         override fun handle(
             coroutineScope: CoroutineScope,
-            block: suspend () -> QuoteResult
+            block: suspend () -> QuoteResult,
+            onComplete: (() -> Unit)?
         ) {
             communications.showProgress(View.VISIBLE)
             coroutineScope.launch(Dispatchers.IO) {
@@ -29,8 +31,10 @@ interface QuoteHandleRequest {
                 withContext(Dispatchers.Main) {
                     communications.showProgress(View.GONE)
                     result.map(mapper)
+                    onComplete?.invoke()
                 }
             }
         }
+
     }
 }
