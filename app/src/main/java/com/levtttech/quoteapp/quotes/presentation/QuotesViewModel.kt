@@ -39,7 +39,7 @@ class QuotesViewModel @Inject constructor(
         )
     }
 
-    override fun init(isFirstRun: Boolean) {
+    override fun init(isFirstRun:    Boolean) {
         if (isFirstRun) this.handle.handle(
             viewModelScope,
             { interactor.init() },

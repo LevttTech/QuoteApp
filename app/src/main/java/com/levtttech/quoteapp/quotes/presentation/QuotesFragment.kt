@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class QuotesFragment : BaseFragment<QuotesViewModel>() {
-    override val viewModel: QuotesViewModel by lazy {  viewModels<QuotesViewModel>().value}
+    override val viewModel: QuotesViewModel  by viewModels<QuotesViewModel>()
     override val layoutId: Int
         get() = R.layout.fragment_quotes
 

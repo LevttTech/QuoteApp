@@ -19,6 +19,7 @@ interface QuoteHandleRequest {
     class Base @Inject constructor(
         private val mapper: QuoteResult.Mapper<Unit>,
         private val communications: QuotesCommunications,
+        private val dispatchersList: DispatchersList
     ) : QuoteHandleRequest {
         override fun handle(
             coroutineScope: CoroutineScope,
@@ -26,9 +27,9 @@ interface QuoteHandleRequest {
             onComplete: (() -> Unit)?
         ) {
             communications.showProgress(View.VISIBLE)
-            coroutineScope.launch(Dispatchers.IO) {
+            coroutineScope.launch(dispatchersList.io()) {
                 val result = block.invoke()
-                withContext(Dispatchers.Main) {
+                withContext(dispatchersList.ui()) {
                     communications.showProgress(View.GONE)
                     result.map(mapper)
                     onComplete?.invoke()

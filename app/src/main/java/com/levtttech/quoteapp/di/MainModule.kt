@@ -9,6 +9,7 @@ import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import com.levtttech.quoteapp.quotes.domain.Repository
+import com.levtttech.quoteapp.quotes.presentation.DispatchersList
 import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
 import com.levtttech.quoteapp.quotes.presentation.QuotesCommunication
@@ -47,5 +48,8 @@ interface MainModule {
         impl: QuoteDataToDomain
     ): QuoteData.Mapper<QuoteDomain>
 
-
+    @Binds
+    fun bindDispatchers(
+        impl: DispatchersList.Base
+    ): DispatchersList
 }
