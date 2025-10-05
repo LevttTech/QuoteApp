@@ -1,15 +1,11 @@
 package com.levtttech.quoteapp.quotes.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.levtttech.quoteapp.R
@@ -18,13 +14,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class QuotesFragment : BaseFragment<QuotesViewModel>() {
-    override val viewModel: QuotesViewModel  by viewModels<QuotesViewModel>()
+    override val viewModel: QuotesViewModel by viewModels<QuotesViewModel>()
     override val layoutId: Int
         get() = R.layout.fragment_quotes
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

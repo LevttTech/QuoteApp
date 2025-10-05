@@ -1,14 +1,12 @@
 package com.levtttech.quoteapp.quotes.presentation
 
-import android.util.Log
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import javax.inject.Inject
-import kotlin.math.log
 
 class QuotesResultMapper @Inject constructor(
     private val communications: QuotesCommunications,
-    private val mapper: QuoteDomain.Mapper<QuoteUi>
+    private val mapper: QuoteDomain.Mapper<QuoteUi>,
 ) : QuoteResult.Mapper<Unit> {
     override fun map(errorMessage: String) {
         communications.showState(UiState.Error(errorMessage))

@@ -9,6 +9,7 @@ import com.levtttech.quoteapp.quotes.data.cache.QuoteCache
 import com.levtttech.quoteapp.quotes.data.cache.QuotesCacheDataSource
 import com.levtttech.quoteapp.quotes.data.cache.QuotesDao
 import com.levtttech.quoteapp.quotes.data.cache.QuotesDataBase
+import com.levtttech.quoteapp.quotes.domain.HandleError
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import dagger.Module
 import dagger.Provides
@@ -40,11 +41,13 @@ class CacheModule {
     @Provides
     fun provideMapper(): QuoteData.Mapper<QuoteCache> = QuoteDataToCacheMapper()
 
+
     @Provides
     fun provideHandleDataRequest(
-        cacheDataSource: QuotesCacheDataSource, mapper: QuoteData.Mapper<QuoteDomain>
+        cacheDataSource: QuotesCacheDataSource, mapper: QuoteData.Mapper<QuoteDomain>,
+        handleDomainError: HandleError<Exception>
     ): HandleDataRequest = HandleDataRequest.Base(
-        cacheDataSource, mapper
+        cacheDataSource, mapper, handleDomainError
     )
 
 }
