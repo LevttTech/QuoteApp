@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class QuoteDataToCacheMapper @Inject constructor(
 ) : QuoteData.Mapper<QuoteCache>{
-    override fun map(id: Int, quote: String): QuoteCache = QuoteCache(id, quote)
+    override fun map(id: Int, quote: String, author: String, category: String): QuoteCache = QuoteCache(id, quote, author, category)
 }

@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.quotes.domain
 
+import android.util.Log
 import javax.inject.Inject
 
 interface HandleRequest {
@@ -14,6 +15,7 @@ interface HandleRequest {
                 block.invoke()
                 QuoteResult.Success(repository.allQuotes())
             } catch(e: Exception) {
+                Log.d("HandleRequest", "Caught exception: ${e.javaClass.simpleName} - ${e.message}")
                 QuoteResult.Failure(errorHandler.handle(e))
             }
         }

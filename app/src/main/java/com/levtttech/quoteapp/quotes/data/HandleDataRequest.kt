@@ -20,6 +20,7 @@ interface HandleDataRequest {
                 cacheDataSource.insert(result)
                 result.map(mapper)
             } catch (e: Exception) {
+                Log.d("HandleDataRequest", "Caught exception: ${e.javaClass.simpleName} - ${e.message}")
                 throw exceptionHandler.handle(e)
             }
         }

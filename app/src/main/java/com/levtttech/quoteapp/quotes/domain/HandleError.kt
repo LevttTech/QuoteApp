@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.quotes.domain
 
+import android.util.Log
 import com.levtttech.quoteapp.quotes.domain.DomainException.NoInternetConnectionException
 import com.levtttech.quoteapp.quotes.domain.DomainException.ServiceUnavaliableException
 import javax.inject.Inject
