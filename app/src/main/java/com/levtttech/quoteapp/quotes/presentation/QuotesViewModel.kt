@@ -5,6 +5,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.levtttech.quoteapp.main.presentation.BaseViewModel
+import com.levtttech.quoteapp.main.presentation.NavigationCommunication
+import com.levtttech.quoteapp.main.presentation.Screen
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,7 +16,8 @@ class QuotesViewModel @Inject constructor(
     private val interactor: QuoteInteractor,
     private val communications: QuotesCommunications,
     private val handle: QuoteHandleRequest,
-) : BaseViewModel(), ObserveQuotes, FetchQuote, Init, ClearText {
+    private val details: Details
+) : BaseViewModel(), ObserveQuotes, FetchQuote, Init, ClearText, Details {
 
     private companion object {
         const val TAG = "QuotesViewModel"
@@ -84,6 +87,8 @@ class QuotesViewModel @Inject constructor(
         Log.d(TAG, "clearText called")
         communications.showState(UiState.ClearText())
     }
+
+    override fun details() = details.details()
 }
 
 interface FetchQuote {
@@ -98,12 +103,14 @@ interface ClearText {
     fun clearText()
 }
 
-interface SaveDetails {
-    fun save()
+interface Details {
+    fun details()
 
-    class Base() : SaveDetails {
-        override fun save() {
-
+    class Base @Inject constructor(
+        private val navigationCommunication: NavigationCommunication.Base
+    ) : Details {
+        override fun details() {
+            navigationCommunication.map(Screen.Details)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.levtttech.quoteapp.di
 
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
+import com.levtttech.quoteapp.quotes.presentation.Details
 import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
 import com.levtttech.quoteapp.quotes.presentation.QuoteUi
@@ -46,4 +47,8 @@ interface QuotesModule {
     @Binds
     @ViewModelScoped
     fun bindQuoteMapperToUi(impl: QuoteUiMapper): QuoteDomain.Mapper<QuoteUi>
+
+    @Binds
+    @ViewModelScoped
+    fun bindNavigation(impl: Details.Base): Details
 }

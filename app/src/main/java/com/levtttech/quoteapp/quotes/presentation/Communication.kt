@@ -30,6 +30,7 @@ interface Communication {
          liveData: MutableLiveData<T> = MutableLiveData()
     ): Abstract<T>(liveData) {
         override fun map(source: T) {
+            Log.d("Details","map value")
             liveData.value = source
         }
     }
@@ -37,7 +38,7 @@ interface Communication {
     abstract class Post<T>(
         liveData: MutableLiveData<T> = MutableLiveData()
     ) : Abstract<T>(liveData) {
-        override fun map (source: T) {
+        override fun map(source: T) {
             liveData.postValue(source)
         }
 

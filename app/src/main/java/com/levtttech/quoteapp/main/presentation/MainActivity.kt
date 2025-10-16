@@ -3,16 +3,18 @@ package com.levtttech.quoteapp.main.presentation
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.levtttech.quoteapp.R
 import com.levtttech.quoteapp.quotes.presentation.QuotesFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
+    private val viewModel: MainViewModel by viewModels<MainViewModel>()
     companion object {
         private const val TAG = "MainActivity"
     }
@@ -27,6 +29,10 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        viewModel.observe(this) {
+            Log.d("MainActivity", "observer")
+            it.show(supportFragmentManager, R.id.container)
         }
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

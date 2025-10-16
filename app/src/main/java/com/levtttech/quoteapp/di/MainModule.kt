@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.di
 
+import com.levtttech.quoteapp.main.presentation.NavigationCommunication
 import com.levtttech.quoteapp.quotes.data.BaseQuoteRepository
 import com.levtttech.quoteapp.quotes.data.HandleDataRequest
 import com.levtttech.quoteapp.quotes.data.HandleDomainError
@@ -26,6 +27,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -83,5 +85,12 @@ class MainModule {
     fun provideDispatchers(): DispatchersList {
         return DispatchersList.Base()
     }
+
+    @Provides
+    @Singleton
+    fun provideNavigation(): NavigationCommunication.Base {
+        return NavigationCommunication.Base()
+    }
+
 
 }
