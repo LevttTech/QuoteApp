@@ -42,7 +42,7 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = QuotesAdapter(object : ClickListener {
             override fun click(item: QuoteUi) {
-                viewModel.details()
+                viewModel.details(item)
             }
         })
         recyclerView.adapter = adapter

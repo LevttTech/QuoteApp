@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.quotes.presentation
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -88,7 +89,7 @@ class QuotesViewModel @Inject constructor(
         communications.showState(UiState.ClearText())
     }
 
-    override fun details() = details.details()
+    override fun details(item: QuoteUi) = details.details(item)
 }
 
 interface FetchQuote {
@@ -104,13 +105,16 @@ interface ClearText {
 }
 
 interface Details {
-    fun details()
+    fun details(item: QuoteUi)
 
     class Base @Inject constructor(
         private val navigationCommunication: NavigationCommunication.Base
     ) : Details {
-        override fun details() {
-            navigationCommunication.map(Screen.Details)
+        override fun details(item: QuoteUi) {
+
+            navigationCommunication.map(Screen.Details(Bundle(
+
+            ).apply { putParcelable("item",item)}))
         }
     }
 }

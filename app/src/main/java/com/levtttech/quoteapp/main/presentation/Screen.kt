@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.main.presentation
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.levtttech.quoteapp.details.presentation.DetailsFragment
@@ -9,22 +10,26 @@ sealed interface Screen {
 
     fun show(fragmentManager: FragmentManager, container: Int)
 
-    object Details : Screen {
+    data class Details(
+        private val args: Bundle
+    ) : Screen {
         override fun show(
             fragmentManager: FragmentManager,
             container: Int,
         ) {
-            fragmentManager.beginTransaction().replace(container, DetailsFragment())
+            fragmentManager.beginTransaction().replace(container, DetailsFragment().apply { arguments=args })
                 .commit()
         }
     }
 
-    object Quote: Screen {
+    data class Quote(
+        private val args: Bundle
+    ): Screen {
         override fun show(
             fragmentManager: FragmentManager,
             container: Int,
         ) {
-            fragmentManager.beginTransaction().replace(container, QuotesFragment())
+            fragmentManager.beginTransaction().replace(container, QuotesFragment().apply { arguments = args})
                 .commit()
         }
     }
