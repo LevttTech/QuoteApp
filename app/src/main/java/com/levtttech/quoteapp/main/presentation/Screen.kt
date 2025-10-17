@@ -1,36 +1,44 @@
 package com.levtttech.quoteapp.main.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.levtttech.quoteapp.details.presentation.DetailsFragment
 import com.levtttech.quoteapp.quotes.presentation.QuotesFragment
 
 sealed interface Screen {
 
     fun show(fragmentManager: FragmentManager, container: Int)
-
-    data class Details(
-        private val args: Bundle
-    ) : Screen {
+    abstract class Abstract : Screen {
         override fun show(
             fragmentManager: FragmentManager,
             container: Int,
         ) {
-            fragmentManager.beginTransaction().replace(container, DetailsFragment().apply { arguments=args })
-                .commit()
+            fragmentManager.beginTransaction().executeTransaction(container).commit()
+
         }
+
+        abstract fun FragmentTransaction.executeTransaction(
+            container: Int,
+        ): FragmentTransaction
+
     }
 
-    data class Quote(
-        private val args: Bundle
-    ): Screen {
-        override fun show(
-            fragmentManager: FragmentManager,
+    data class Details(
+        private val args: Bundle,
+    ) : Abstract() {
+        override fun FragmentTransaction.executeTransaction(
             container: Int,
-        ) {
-            fragmentManager.beginTransaction().replace(container, QuotesFragment().apply { arguments = args})
-                .commit()
-        }
+        ): FragmentTransaction = replace(
+            container, DetailsFragment().apply { arguments = args })
+    }
+
+    data class Quotes(
+        private val args: Bundle,
+    ) : Abstract() {
+        override fun FragmentTransaction.executeTransaction(
+            container: Int,
+        ): FragmentTransaction = replace(
+            container, QuotesFragment().apply { arguments = args })
     }
 }
