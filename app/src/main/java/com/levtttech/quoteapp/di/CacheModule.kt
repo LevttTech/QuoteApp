@@ -33,7 +33,7 @@ class CacheModule {
 
     @Provides
     fun provideCacheDataSource(
-        dao: QuotesDao, dataToCache: QuoteData.Mapper<QuoteCache>
+        dao: QuotesDao, dataToCache: QuoteData.Mapper<QuoteCache>,
     ): QuotesCacheDataSource = QuotesCacheDataSource.Base(
         dao, dataToCache
     )
@@ -45,7 +45,7 @@ class CacheModule {
     @Provides
     fun provideHandleDataRequest(
         cacheDataSource: QuotesCacheDataSource, mapper: QuoteData.Mapper<QuoteDomain>,
-        handleDomainError: HandleError<Exception>
+        handleDomainError: HandleError<Exception>,
     ): HandleDataRequest = HandleDataRequest.Base(
         cacheDataSource, mapper, handleDomainError
     )

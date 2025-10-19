@@ -1,11 +1,7 @@
 package com.levtttech.quoteapp.main.presentation
 
-import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.levtttech.quoteapp.details.presentation.DetailsFragment
 import com.levtttech.quoteapp.details.presentation.DetailsUi
-import com.levtttech.quoteapp.quotes.presentation.QuoteUi
 import com.levtttech.quoteapp.quotes.presentation.QuotesFragment
 
 sealed class Screen {

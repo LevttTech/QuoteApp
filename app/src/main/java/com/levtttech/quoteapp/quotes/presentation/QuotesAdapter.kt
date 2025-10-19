@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.levtttech.quoteapp.R
 
-class QuotesAdapter(private val clickListener: ClickListener) : RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>(),
-    Mapper.Unit<List<QuoteUi>> {
+class QuotesAdapter(private val clickListener: ClickListener) :
+    RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>(), Mapper.Unit<List<QuoteUi>> {
     private var listQuotes = mutableListOf<QuoteUi>()
 
     override fun onBindViewHolder(
@@ -40,7 +40,8 @@ class QuotesAdapter(private val clickListener: ClickListener) : RecyclerView.Ada
     override fun getItemCount(): Int = listQuotes.size
 
 
-    class QuoteViewHolder(view: View, private val clickListener: ClickListener ) : RecyclerView.ViewHolder(view) {
+    class QuoteViewHolder(view: View, private val clickListener: ClickListener) :
+        RecyclerView.ViewHolder(view) {
         val textView = view.findViewById<TextView>(R.id.textViewRecycler)
 
         val mapper = ListItemUi(textView)

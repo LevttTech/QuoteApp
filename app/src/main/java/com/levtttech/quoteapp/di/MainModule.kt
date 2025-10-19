@@ -14,18 +14,10 @@ import com.levtttech.quoteapp.quotes.domain.HandleError
 import com.levtttech.quoteapp.quotes.domain.HandleRequest
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
-import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import com.levtttech.quoteapp.quotes.domain.Repository
 import com.levtttech.quoteapp.quotes.presentation.Details
 import com.levtttech.quoteapp.quotes.presentation.DispatchersList
-import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuoteDetailsMapper
-import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
-import com.levtttech.quoteapp.quotes.presentation.QuotesCommunication
-import com.levtttech.quoteapp.quotes.presentation.QuotesCommunications
-import com.levtttech.quoteapp.quotes.presentation.QuotesResultMapper
-import com.levtttech.quoteapp.quotes.presentation.StateCommunication
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,7 +32,7 @@ class MainModule {
     @Provides
     fun provideQuoteInteractor(
         repository: Repository,
-        handleRequest: HandleRequest
+        handleRequest: HandleRequest,
     ): QuoteInteractor {
         return QuoteInteractor.Base(repository, handleRequest)
     }
@@ -50,7 +42,7 @@ class MainModule {
         cloudDataSource: QuotesCloudDataSource,
         cacheDataSource: QuotesCacheDataSource,
         handleDataRequest: HandleDataRequest,
-        mapper: QuoteData.Mapper<QuoteDomain>
+        mapper: QuoteData.Mapper<QuoteDomain>,
     ): Repository {
         return BaseQuoteRepository(cloudDataSource, cacheDataSource, mapper, handleDataRequest)
     }
@@ -58,7 +50,7 @@ class MainModule {
     @Provides
     fun provideHandleRequest(
         repository: Repository,
-        handleError: HandleError<String>
+        handleError: HandleError<String>,
     ): HandleRequest {
         return HandleRequest.Base(repository, handleError)
     }
@@ -75,7 +67,7 @@ class MainModule {
 
     @Provides
     fun provideQuotesCloudDataSource(
-        impl: QuotesService
+        impl: QuotesService,
     ): QuotesCloudDataSource {
         return QuotesCloudDataSource.Base(impl)
     }
@@ -101,10 +93,14 @@ class MainModule {
     fun provideMapper(@ApplicationContext context: Context): QuoteDetailsMapper {
         return QuoteDetailsMapper(context)
     }
+
     @Provides
     @Singleton
-    fun provideDetails(mapper: QuoteDetailsMapper, navigationCommunication: NavigationCommunication.Base): Details {
-        return Details.Base(navigationCommunication,mapper)
+    fun provideDetails(
+        mapper: QuoteDetailsMapper,
+        navigationCommunication: NavigationCommunication.Base,
+    ): Details {
+        return Details.Base(navigationCommunication, mapper)
     }
 
 

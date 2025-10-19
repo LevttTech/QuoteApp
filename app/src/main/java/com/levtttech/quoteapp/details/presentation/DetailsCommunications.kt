@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 interface DetailsCommunications : ObserveDetails {
     fun showDetails(uiState: UiState)
-    
+
     class Base @Inject constructor(
-        private val details: Details
-    ): DetailsCommunications {
+        private val details: Details,
+    ) : DetailsCommunications {
         override fun showDetails(uiState: UiState) {
             details.map(uiState)
         }
@@ -29,5 +29,5 @@ interface ObserveDetails {
 }
 
 interface Details : Communication.Mutable<UiState> {
-    class Base @Inject constructor(): Communication.Ui<UiState>(), Details
+    class Base @Inject constructor() : Communication.Ui<UiState>(), Details
 }

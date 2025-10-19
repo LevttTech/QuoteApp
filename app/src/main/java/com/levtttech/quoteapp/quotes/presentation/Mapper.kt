@@ -1,7 +1,7 @@
 package com.levtttech.quoteapp.quotes.presentation
 
-interface Mapper<R,S> {
+interface Mapper<R, S> {
     fun map(source: S): R
 
-    interface Unit<S>: Mapper<kotlin.Unit,S>
+    interface Unit<S> : Mapper<kotlin.Unit, S>
 }

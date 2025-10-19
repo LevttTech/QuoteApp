@@ -1,8 +1,6 @@
 package com.levtttech.quoteapp.quotes.data.cloud
 
-import com.levtttech.quoteapp.quotes.data.HandleDataRequest
 import com.levtttech.quoteapp.quotes.data.QuoteData
-import com.levtttech.quoteapp.quotes.domain.Repository
 import javax.inject.Inject
 
 interface QuotesCloudDataSource {
@@ -10,7 +8,7 @@ interface QuotesCloudDataSource {
 
     class Base @Inject constructor(
         private val service: QuotesService,
-    ): QuotesCloudDataSource {
+    ) : QuotesCloudDataSource {
         override suspend fun quote(): QuoteData = service.loadQuote()[0]
 
     }

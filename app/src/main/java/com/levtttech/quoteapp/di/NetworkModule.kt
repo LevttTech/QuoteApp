@@ -19,25 +19,20 @@ class NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
 
 
-        return OkHttpClient.Builder()
-            .addInterceptor { chain ->
+        return OkHttpClient.Builder().addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()
                     .header("X-Api-Key", "uzJ+HKZzgJhSePYHAHVYdQ==VNdX7W96FiEDIa1q")
                 val request = requestBuilder.build()
                 chain.proceed(request)
-            }
-            .build()
+            }.build()
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://api.api-ninjas.com/v1/")
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return Retrofit.Builder().baseUrl("https://api.api-ninjas.com/v1/").client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     @Provides

@@ -3,11 +3,10 @@ package com.levtttech.quoteapp.quotes.presentation
 import android.content.Context
 import com.levtttech.quoteapp.R
 import com.levtttech.quoteapp.details.presentation.DetailsUi
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class QuoteDetailsMapper @Inject constructor(
-    private val context: Context
+    private val context: Context,
 ) : QuoteUi.Mapper<DetailsUi> {
     override fun map(
         id: Int,

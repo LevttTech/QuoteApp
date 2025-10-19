@@ -2,11 +2,11 @@ package com.levtttech.quoteapp.quotes.domain
 
 import javax.inject.Inject
 
-interface QuoteInteractor: QuoteInitialUseCase, QuoteUseCase {
+interface QuoteInteractor : QuoteInitialUseCase, QuoteUseCase {
 
     class Base @Inject constructor(
         private val repository: Repository,
-        private val handleRequest: HandleRequest
+        private val handleRequest: HandleRequest,
     ) : QuoteInteractor {
         override suspend fun init(): QuoteResult = handleRequest.handle()
 
@@ -17,7 +17,7 @@ interface QuoteInteractor: QuoteInitialUseCase, QuoteUseCase {
 }
 
 interface QuoteInitialUseCase {
-    suspend fun init() : QuoteResult
+    suspend fun init(): QuoteResult
 }
 
 interface QuoteUseCase {

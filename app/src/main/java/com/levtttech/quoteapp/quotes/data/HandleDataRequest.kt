@@ -7,20 +7,23 @@ import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import javax.inject.Inject
 
 interface HandleDataRequest {
-    suspend fun handle(block: suspend() -> QuoteData): QuoteDomain
+    suspend fun handle(block: suspend () -> QuoteData): QuoteDomain
 
     class Base @Inject constructor(
         private val cacheDataSource: QuotesCacheDataSource,
         private val mapper: QuoteData.Mapper<QuoteDomain>,
-        private val exceptionHandler: HandleError<Exception>
-    ): HandleDataRequest {
+        private val exceptionHandler: HandleError<Exception>,
+    ) : HandleDataRequest {
         override suspend fun handle(block: suspend () -> QuoteData): QuoteDomain {
             return try {
                 val result: QuoteData = block.invoke()
                 cacheDataSource.insert(result)
                 result.map(mapper)
             } catch (e: Exception) {
-                Log.d("HandleDataRequest", "Caught exception: ${e.javaClass.simpleName} - ${e.message}")
+                Log.d(
+                    "HandleDataRequest",
+                    "Caught exception: ${e.javaClass.simpleName} - ${e.message}"
+                )
                 throw exceptionHandler.handle(e)
             }
         }

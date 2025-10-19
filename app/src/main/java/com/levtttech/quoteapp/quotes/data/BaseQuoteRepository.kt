@@ -10,8 +10,8 @@ class BaseQuoteRepository @Inject constructor(
     private val cloudDataSource: QuotesCloudDataSource,
     private val cacheDataSource: QuotesCacheDataSource,
     private val mapper: QuoteData.Mapper<QuoteDomain>,
-    private val handleDataRequest: HandleDataRequest
-): Repository {
+    private val handleDataRequest: HandleDataRequest,
+) : Repository {
     override suspend fun loadQuote(): QuoteDomain {
         return handleDataRequest.handle { cloudDataSource.quote() }
     }

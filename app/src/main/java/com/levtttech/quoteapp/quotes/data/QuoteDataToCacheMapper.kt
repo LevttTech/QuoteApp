@@ -4,6 +4,7 @@ import com.levtttech.quoteapp.quotes.data.cache.QuoteCache
 import javax.inject.Inject
 
 class QuoteDataToCacheMapper @Inject constructor(
-) : QuoteData.Mapper<QuoteCache>{
-    override fun map(id: Int, quote: String, author: String, category: String): QuoteCache = QuoteCache(id, quote, author, category)
+) : QuoteData.Mapper<QuoteCache> {
+    override fun map(id: Int, quote: String, author: String, category: String): QuoteCache =
+        QuoteCache(id, quote, author, category)
 }

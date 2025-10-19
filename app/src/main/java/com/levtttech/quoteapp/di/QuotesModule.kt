@@ -2,9 +2,7 @@ package com.levtttech.quoteapp.di
 
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
-import com.levtttech.quoteapp.quotes.presentation.Details
 import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
-import com.levtttech.quoteapp.quotes.presentation.QuoteDetailsMapper
 import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
 import com.levtttech.quoteapp.quotes.presentation.QuoteUi
 import com.levtttech.quoteapp.quotes.presentation.QuoteUiMapper
