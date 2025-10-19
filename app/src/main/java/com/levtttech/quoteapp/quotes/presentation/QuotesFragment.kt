@@ -2,9 +2,11 @@ package com.levtttech.quoteapp.quotes.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
@@ -14,6 +16,7 @@ import com.levtttech.quoteapp.R
 import com.levtttech.quoteapp.details.presentation.DetailsFragment
 import com.levtttech.quoteapp.main.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class QuotesFragment : BaseFragment<QuotesViewModel>() {
@@ -25,10 +28,18 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         private const val TAG = "QuotesFragment"
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d(TAG,"onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Инициализация компонентов, которые не зависят от UI
-        // Восстановление состояния фрагмента
+        viewModel.init(savedInstanceState == null)
         Log.d(TAG, "onCreate")
     }
 
@@ -48,6 +59,7 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         recyclerView.adapter = adapter
 
         viewModel.observeQuotes(viewLifecycleOwner) {
+            Log.d(TAG,"adapter called")
             adapter.map(it)
         }
 
@@ -56,6 +68,7 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
         }
 
         viewModel.observeState(viewLifecycleOwner) { state ->
+            Log.d(TAG,"observstate called ")
             state.show(textView)
         }
 
@@ -64,60 +77,47 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
             button.isClickable = visibility == GONE
             textView.visibility = if (visibility == GONE) VISIBLE else GONE
         }
-
-        viewModel.init(savedInstanceState == null)
     }
 
     override fun onStart() {
         super.onStart()
-        // Фрагмент становится видимым для пользователя
         Log.d(TAG, "onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        // Фрагмент начинает взаимодействие с пользователем
-        // Восстановление анимаций, обновление данных и т.д.
         Log.d(TAG, "onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        // Фрагмент теряет фокус, но остается видимым
-        // Сохранение данных, приостановка анимаций
         Log.d(TAG, "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        // Фрагмент больше не виден пользователю
         Log.d(TAG, "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // UI уничтожается, но фрагмент продолжает существовать
-        // Очистка ссылок на View для избежания утечек памяти
         Log.d(TAG, "onDestroyView")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        // Фрагмент уничтожается
-        // Очистка ресурсов
         Log.d(TAG, "onDestroy")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        // Сохранение состояния для восстановления при повороте экрана
         Log.d(TAG, "onSaveInstanceState")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        // Восстановление состояния UI после поворота экрана
         Log.d(TAG, "onViewStateRestored")
     }
+
 }
 

@@ -1,12 +1,13 @@
 package com.levtttech.quoteapp.quotes.presentation
 
-import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.levtttech.quoteapp.main.presentation.BaseViewModel
 import com.levtttech.quoteapp.main.presentation.NavigationCommunication
+import com.levtttech.quoteapp.main.presentation.NavigationStrategy
 import com.levtttech.quoteapp.main.presentation.Screen
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ class QuotesViewModel @Inject constructor(
     private val interactor: QuoteInteractor,
     private val communications: QuotesCommunications,
     private val handle: QuoteHandleRequest,
-    private val details: Details
+    private val details: Details,
 ) : BaseViewModel(), ObserveQuotes, FetchQuote, Init, ClearText, Details {
 
     private companion object {
@@ -60,32 +61,27 @@ class QuotesViewModel @Inject constructor(
             viewModelScope, {
                 Log.d(TAG, "Interactor quote() called")
                 interactor.quote()
-            }
-        )
+            })
     }
 
     override fun init(isFirstRun: Boolean) {
         Log.d(TAG, "init called with isFirstRun: $isFirstRun")
         if (isFirstRun) {
+            Log.d("QuotesFragment","init runs()")
             Log.d(TAG, "First run - handling initialization")
-            this.handle.handle(
-                viewModelScope,
-                {
-                    Log.d(TAG, "Interactor init() called")
-                    interactor.init()
-                },
-                {
-                    Log.d(TAG, "Clear text callback executed")
-                    clearText()
-                }
-            )
+            this.handle.handle(viewModelScope, {
+                Log.d(TAG, "Interactor init() called")
+                interactor.init()
+            }, {
+                Log.d(TAG, "Clear text callback executed")
+                clearText()
+            })
         } else {
             Log.d(TAG, "Not first run - skipping initialization")
         }
     }
 
     override fun clearText() {
-        Log.d(TAG, "clearText called")
         communications.showState(UiState.ClearText())
     }
 
@@ -108,13 +104,15 @@ interface Details {
     fun details(item: QuoteUi)
 
     class Base @Inject constructor(
-        private val navigationCommunication: NavigationCommunication.Base
+        private val navigationCommunication: NavigationCommunication.Base,
+        private val mapper: QuoteDetailsMapper,
     ) : Details {
         override fun details(item: QuoteUi) {
-
-            navigationCommunication.map(Screen.Details(Bundle(
-
-            ).apply { putParcelable("item",item)}))
+            navigationCommunication.map(
+                NavigationStrategy.Replace(
+                    Screen.Details(item.map(mapper))
+                )
+            )
         }
     }
 }

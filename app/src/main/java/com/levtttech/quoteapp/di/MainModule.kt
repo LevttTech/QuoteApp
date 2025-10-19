@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.di
 
+import android.content.Context
 import com.levtttech.quoteapp.main.presentation.NavigationCommunication
 import com.levtttech.quoteapp.quotes.data.BaseQuoteRepository
 import com.levtttech.quoteapp.quotes.data.HandleDataRequest
@@ -15,8 +16,10 @@ import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import com.levtttech.quoteapp.quotes.domain.QuoteResult
 import com.levtttech.quoteapp.quotes.domain.Repository
+import com.levtttech.quoteapp.quotes.presentation.Details
 import com.levtttech.quoteapp.quotes.presentation.DispatchersList
 import com.levtttech.quoteapp.quotes.presentation.ProgressCommunication
+import com.levtttech.quoteapp.quotes.presentation.QuoteDetailsMapper
 import com.levtttech.quoteapp.quotes.presentation.QuoteHandleRequest
 import com.levtttech.quoteapp.quotes.presentation.QuotesCommunication
 import com.levtttech.quoteapp.quotes.presentation.QuotesCommunications
@@ -26,6 +29,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -90,6 +94,17 @@ class MainModule {
     @Singleton
     fun provideNavigation(): NavigationCommunication.Base {
         return NavigationCommunication.Base()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapper(@ApplicationContext context: Context): QuoteDetailsMapper {
+        return QuoteDetailsMapper(context)
+    }
+    @Provides
+    @Singleton
+    fun provideDetails(mapper: QuoteDetailsMapper, navigationCommunication: NavigationCommunication.Base): Details {
+        return Details.Base(navigationCommunication,mapper)
     }
 
 

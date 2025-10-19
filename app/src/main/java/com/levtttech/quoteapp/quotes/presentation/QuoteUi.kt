@@ -18,11 +18,6 @@ data class QuoteUi(
 
     override fun map(source: QuoteUi): Boolean = source.id == id
 }
-
-class DetailsUi: QuoteUi.Mapper<String> {
-    override fun map(id: Int, quote: String, author: String, category: String) = quote
-}
-
 class ListItemUi(
     private val textView: TextView
 ) : QuoteUi.Mapper<Unit> {

@@ -34,11 +34,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("MainActivity", "observer")
             it.show(supportFragmentManager, R.id.container)
         }
-        if(savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .add(R.id.container, QuotesFragment())
-                .commit()
-        }
+        viewModel.init(savedInstanceState == null)
     }
 
     override fun onStart() {

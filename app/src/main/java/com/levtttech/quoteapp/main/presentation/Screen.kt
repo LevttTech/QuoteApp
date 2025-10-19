@@ -4,41 +4,23 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.levtttech.quoteapp.details.presentation.DetailsFragment
+import com.levtttech.quoteapp.details.presentation.DetailsUi
+import com.levtttech.quoteapp.quotes.presentation.QuoteUi
 import com.levtttech.quoteapp.quotes.presentation.QuotesFragment
 
-sealed interface Screen {
+sealed class Screen {
 
-    fun show(fragmentManager: FragmentManager, container: Int)
-    abstract class Abstract : Screen {
-        override fun show(
-            fragmentManager: FragmentManager,
-            container: Int,
-        ) {
-            fragmentManager.beginTransaction().executeTransaction(container).commit()
+    abstract fun fragment(): BaseFragment<*>
 
+    class Details(private val item: DetailsUi) : Screen() {
+        override fun fragment(): BaseFragment<*> {
+            return DetailsFragment.createFragment(item)
         }
-
-        abstract fun FragmentTransaction.executeTransaction(
-            container: Int,
-        ): FragmentTransaction
-
     }
 
-    data class Details(
-        private val args: Bundle,
-    ) : Abstract() {
-        override fun FragmentTransaction.executeTransaction(
-            container: Int,
-        ): FragmentTransaction = replace(
-            container, DetailsFragment().apply { arguments = args })
-    }
-
-    data class Quotes(
-        private val args: Bundle,
-    ) : Abstract() {
-        override fun FragmentTransaction.executeTransaction(
-            container: Int,
-        ): FragmentTransaction = replace(
-            container, QuotesFragment().apply { arguments = args })
+    class Quotes : Screen() {
+        override fun fragment(): BaseFragment<*> {
+            return QuotesFragment()
+        }
     }
 }

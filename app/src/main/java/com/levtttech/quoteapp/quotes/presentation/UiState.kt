@@ -1,5 +1,6 @@
 package com.levtttech.quoteapp.quotes.presentation
 
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -20,6 +21,7 @@ sealed class UiState {
         private val text: String,
     ) : UiState() {
         override fun show(textView: TextView) {
+            Log.d("QuotesFragment", "show() text=$text")
            textView.text = text
         }
     }

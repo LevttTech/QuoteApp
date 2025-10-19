@@ -12,12 +12,19 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val navigationCommunication: NavigationCommunication.Base
-): ViewModel(), Communication.Observe<Screen> {
+): ViewModel(), Communication.Observe<NavigationStrategy>, Init {
     override fun observe(
         owner: LifecycleOwner,
-            observer: Observer<Screen>,
+        observer: Observer<NavigationStrategy>,
     ) {
         Log.d("MainViewModel","observe")
         navigationCommunication.observe(owner, observer)
+    }
+
+    override fun init(isFirstRun: Boolean) {
+        if (isFirstRun) {
+            Log.d("QuotesFragment","init")
+            navigationCommunication.map(NavigationStrategy.Replace(Screen.Quotes()))
+        }
     }
 }

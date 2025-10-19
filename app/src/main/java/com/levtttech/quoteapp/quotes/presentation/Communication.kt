@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.levtttech.quoteapp.main.presentation.SingleLiveEvent
 
 interface Communication {
 
@@ -43,4 +44,6 @@ interface Communication {
         }
 
     }
+
+    abstract class SingleUi<T> :Ui<T>(SingleLiveEvent())
 }
