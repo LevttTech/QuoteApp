@@ -32,7 +32,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     }
 
     companion object {
-        private const val TAG = "DetailsFragment"
         private const val ARG_PARAM1 = "param1"
 
         fun createFragment(item: DetailsUi): DetailsFragment {
