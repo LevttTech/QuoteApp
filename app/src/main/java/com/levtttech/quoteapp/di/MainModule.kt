@@ -1,6 +1,7 @@
 package com.levtttech.quoteapp.di
 
 import android.content.Context
+import com.levtttech.quoteapp.details.data.QuoteDetailsRepository
 import com.levtttech.quoteapp.main.presentation.NavigationCommunication
 import com.levtttech.quoteapp.quotes.data.BaseQuoteRepository
 import com.levtttech.quoteapp.quotes.data.HandleDataRequest
@@ -15,6 +16,7 @@ import com.levtttech.quoteapp.quotes.domain.HandleRequest
 import com.levtttech.quoteapp.quotes.domain.QuoteDomain
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
 import com.levtttech.quoteapp.quotes.domain.Repository
+import com.levtttech.quoteapp.quotes.domain.SaveDetailsUseCase
 import com.levtttech.quoteapp.quotes.presentation.Details
 import com.levtttech.quoteapp.quotes.presentation.DispatchersList
 import com.levtttech.quoteapp.quotes.presentation.QuoteDetailsMapper
@@ -28,13 +30,30 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class MainModule {
+    @Provides
+    @Singleton
+    fun provideQuoteDetailsRepository(): QuoteDetailsRepository.Base {
+        return QuoteDetailsRepository.Base()
+    }
+    @Provides
+    @Singleton
+    fun provideQuoteDetailsSave(repository: QuoteDetailsRepository.Base): QuoteDetailsRepository.Save {
+        return repository
+    }
+
+    @Provides
+    @Singleton
+    fun provideQuoteDetailsRead(repository: QuoteDetailsRepository.Base): QuoteDetailsRepository.Read {
+        return repository
+    }
 
     @Provides
     fun provideQuoteInteractor(
         repository: Repository,
         handleRequest: HandleRequest,
+        useCase: QuoteDetailsRepository.Save,
     ): QuoteInteractor {
-        return QuoteInteractor.Base(repository, handleRequest)
+        return QuoteInteractor.Base(repository, handleRequest, useCase)
     }
 
     @Provides
@@ -99,8 +118,9 @@ class MainModule {
     fun provideDetails(
         mapper: QuoteDetailsMapper,
         navigationCommunication: NavigationCommunication.Base,
+        useCase: QuoteInteractor
     ): Details {
-        return Details.Base(navigationCommunication, mapper)
+        return Details.Base(navigationCommunication, mapper, useCase)
     }
 
 

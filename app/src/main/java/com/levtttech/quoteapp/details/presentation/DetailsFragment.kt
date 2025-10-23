@@ -21,25 +21,13 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         val categoryTv = view.findViewById<TextView>(R.id.categoryTextView)
         val authorTv = view.findViewById<TextView>(R.id.authorTextView)
 
-        val detailsUi = arguments?.getParcelable(ARG_PARAM1, DetailsUi::class.java)!!
-
         viewModel.observe(viewLifecycleOwner) { state ->
             state.show(headTv, categoryTv, authorTv)
         }
 
-        viewModel.init(savedInstanceState == null, detailsUi)
+        viewModel.init(savedInstanceState == null)
 
     }
 
-    companion object {
-        private const val ARG_PARAM1 = "param1"
 
-        fun createFragment(item: DetailsUi): DetailsFragment {
-            return DetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_PARAM1, item)
-                }
-            }
-        }
-    }
 }

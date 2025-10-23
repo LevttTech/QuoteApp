@@ -8,6 +8,7 @@ import com.levtttech.quoteapp.main.presentation.NavigationCommunication
 import com.levtttech.quoteapp.main.presentation.NavigationStrategy
 import com.levtttech.quoteapp.main.presentation.Screen
 import com.levtttech.quoteapp.quotes.domain.QuoteInteractor
+import com.levtttech.quoteapp.quotes.domain.SaveDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -78,11 +79,13 @@ interface Details {
     class Base @Inject constructor(
         private val navigationCommunication: NavigationCommunication.Base,
         private val mapper: QuoteDetailsMapper,
+        private val useCase: SaveDetailsUseCase
     ) : Details {
         override fun details(item: QuoteUi) {
+            useCase.saveDetails(item.map(mapper))
             navigationCommunication.map(
                 NavigationStrategy.Replace(
-                    Screen.Details(item.map(mapper))
+                    Screen.Details()
                 )
             )
         }

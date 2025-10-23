@@ -8,9 +8,9 @@ sealed class Screen {
 
     abstract fun fragment(): BaseFragment<*>
 
-    class Details(private val item: DetailsUi) : Screen() {
+    class Details : Screen() {
         override fun fragment(): BaseFragment<*> {
-            return DetailsFragment.createFragment(item)
+            return DetailsFragment()
         }
     }
 
