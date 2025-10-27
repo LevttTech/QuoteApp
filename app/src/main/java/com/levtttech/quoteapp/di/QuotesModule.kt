@@ -46,5 +46,4 @@ interface QuotesModule {
     @Binds
     @ViewModelScoped
     fun bindQuoteMapperToUi(impl: QuoteUiMapper): QuoteDomain.Mapper<QuoteUi>
-
 }

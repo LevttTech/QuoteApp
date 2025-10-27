@@ -20,7 +20,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 class CacheModule {
-
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): QuotesDataBase {
         return Room.databaseBuilder(
@@ -40,7 +39,6 @@ class CacheModule {
 
     @Provides
     fun provideMapper(): QuoteData.Mapper<QuoteCache> = QuoteDataToCacheMapper()
-
 
     @Provides
     fun provideHandleDataRequest(

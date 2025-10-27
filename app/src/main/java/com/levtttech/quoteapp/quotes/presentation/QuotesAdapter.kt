@@ -1,12 +1,11 @@
 package com.levtttech.quoteapp.quotes.presentation
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.levtttech.quoteapp.R
+import com.levtttech.quoteapp.databinding.FragmentQuotesBinding
+import com.levtttech.quoteapp.databinding.QuoteItemBinding
 
 class QuotesAdapter(private val clickListener: ClickListener) :
     RecyclerView.Adapter<QuotesAdapter.QuoteViewHolder>(), Mapper.Unit<List<QuoteUi>> {
@@ -21,10 +20,11 @@ class QuotesAdapter(private val clickListener: ClickListener) :
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int,
     ): QuoteViewHolder {
+        val binding = QuoteItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return QuoteViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.quote_item, parent, false
-            ), clickListener
+            binding, clickListener
         )
     }
 
@@ -40,14 +40,16 @@ class QuotesAdapter(private val clickListener: ClickListener) :
     override fun getItemCount(): Int = listQuotes.size
 
 
-    class QuoteViewHolder(view: View, private val clickListener: ClickListener) :
-        RecyclerView.ViewHolder(view) {
-        val textView = view.findViewById<TextView>(R.id.textViewRecycler)
+    class QuoteViewHolder(
+        private val binding: QuoteItemBinding,
+        private val clickListener: ClickListener,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        val mapper = ListItemUi(binding.textViewRecycler)
 
-        val mapper = ListItemUi(textView)
+
         fun bind(item: QuoteUi) {
             item.map(mapper)
-            textView.setOnClickListener {
+            binding.textViewRecycler.setOnClickListener {
                 clickListener.click(item)
             }
         }

@@ -17,8 +17,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
-
-
         return OkHttpClient.Builder().addInterceptor { chain ->
                 val original = chain.request()
                 val requestBuilder = original.newBuilder()

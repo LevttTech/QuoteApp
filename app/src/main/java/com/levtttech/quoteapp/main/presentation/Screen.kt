@@ -6,16 +6,16 @@ import com.levtttech.quoteapp.quotes.presentation.QuotesFragment
 
 sealed class Screen {
 
-    abstract fun fragment(): BaseFragment<*>
+    abstract fun fragment(): BaseFragment<*,*>
 
     class Details : Screen() {
-        override fun fragment(): BaseFragment<*> {
+        override fun fragment(): BaseFragment<*,*> {
             return DetailsFragment()
         }
     }
 
     class Quotes : Screen() {
-        override fun fragment(): BaseFragment<*> {
+        override fun fragment(): BaseFragment<*,*> {
             return QuotesFragment()
         }
     }

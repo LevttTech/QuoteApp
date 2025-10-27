@@ -1,22 +1,32 @@
 package com.levtttech.quoteapp.quotes.presentation
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.levtttech.quoteapp.R
+import com.levtttech.quoteapp.databinding.FragmentQuotesBinding
 import com.levtttech.quoteapp.main.presentation.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QuotesFragment : BaseFragment<QuotesViewModel>() {
+class QuotesFragment : BaseFragment<QuotesViewModel, FragmentQuotesBinding>() {
     override val viewModel: QuotesViewModel by viewModels<QuotesViewModel>()
-    override val layoutId: Int
-        get() = R.layout.fragment_quotes
+
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentQuotesBinding = FragmentQuotesBinding.inflate(
+        inflater,
+        container,
+        false
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,33 +36,33 @@ class QuotesFragment : BaseFragment<QuotesViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView = view.findViewById<TextView>(R.id.textView)
-        val button = view.findViewById<Button>(R.id.buttonLoadQuote)
-        val progress = view.findViewById<View>(R.id.progressBar)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val adapter = QuotesAdapter(object : ClickListener {
             override fun click(item: QuoteUi) {
                 viewModel.details(item)
             }
         })
-        recyclerView.adapter = adapter
+        with(binding) {
+            recyclerView.adapter = adapter
+            buttonLoadQuote.setOnClickListener {
+                viewModel.fetchQuote()
+            }
+        }
 
         viewModel.observeQuotes(viewLifecycleOwner) {
             adapter.map(it)
         }
 
-        button.setOnClickListener {
-            viewModel.fetchQuote()
-        }
 
         viewModel.observeState(viewLifecycleOwner) { state ->
-            state.show(textView)
+            state.show(binding.textView)
         }
 
         viewModel.observeProgress(viewLifecycleOwner) { visibility ->
-            progress.visibility = visibility
-            button.isClickable = visibility == GONE
-            textView.visibility = if (visibility == GONE) VISIBLE else GONE
+            with(binding) {
+                progressBar.visibility = visibility
+                buttonLoadQuote.isClickable = visibility == GONE
+                textView.visibility = if (visibility == GONE) VISIBLE else GONE
+            }
         }
     }
 }
